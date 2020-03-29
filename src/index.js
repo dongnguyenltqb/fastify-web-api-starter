@@ -6,9 +6,10 @@ const Autoload = require('fastify-autoload')
 const Ajv = require('ajv')
 const config = require('./config')
 const { setupMongoDBConnection } = require('./infra/mongodb')
-
+const { getElasticInfo } = require('./infra/elasticsearch')
 //
 setupMongoDBConnection()
+getElasticInfo()
 
 const server = Fastify({
   ignoreTrailingSlash: true,

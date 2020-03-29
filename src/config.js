@@ -11,7 +11,7 @@ const config = {
     FE_DOMAIN: 'http://localhost:3000',
     MONGODB_URI: 'mongodb://localhost',
     DB_NAME: 'test',
-    ELASTICSEARCH: 'localhost:9200',
+    ELASTICSEARCH_URI: 'http://localhost:9200',
     LOG_LEVEL: 'info',
     CORS: 'http://localhost:3000',
     SENDGRID_API_KEY: 'some key',
