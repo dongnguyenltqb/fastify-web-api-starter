@@ -20,7 +20,19 @@ const server = Fastify({
     prettyPrint: {
       errorProps: 'hint, detail',
       crlf: true,
-      colorize: true
+      colorize: false
+    },
+    serializers: {
+      req(req) {
+        return {
+          method: req.method,
+          url: req.url,
+          headers: req.headers,
+          hostname: req.hostname,
+          remoteAddress: req.ip,
+          remotePort: req.connection.remotePort
+        }
+      }
     }
   }
 })
