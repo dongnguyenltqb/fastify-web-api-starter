@@ -1,3 +1,4 @@
+const logger = require('./logger')
 const MongoClient = require('mongodb').MongoClient
 const config = require('../config')
 // Connection URL
@@ -15,7 +16,7 @@ function setupMongoDBConnection() {
   // Use connect method to connect to the Server
   client.connect(function(err) {
     if (err) {
-      console.log(err.message)
+      logger.error(err.message)
       setupMongoDBConnection()
     }
     console.log('Connected successfully to MongoDB server')

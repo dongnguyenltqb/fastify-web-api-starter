@@ -2,7 +2,7 @@ const pino = require('pino')
 
 const logger = pino({
   prettyPrint: true,
-  file: 'fastify-runtime.log'
+  colorize: true
 })
 
 module.exports = logger

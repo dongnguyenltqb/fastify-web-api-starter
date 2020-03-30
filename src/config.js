@@ -1,7 +1,7 @@
 const dotenv = require('dotenv')
 dotenv.config()
 
-const env = process.env.NODE_ENV || 'dev'
+const env = process.env.NODE_ENV || 'local'
 const config = {
   //LOCAL =========================================================================
   local: {
