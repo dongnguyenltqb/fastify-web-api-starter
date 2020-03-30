@@ -1,8 +1,11 @@
 const pino = require('pino')
 
 const logger = pino({
-  prettyPrint: true,
-  colorize: true
+  prettyPrint: {
+    errorProps: 'hint, detail',
+    crlf: true,
+    colorize: true
+  }
 })
 
 module.exports = logger
