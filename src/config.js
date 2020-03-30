@@ -4,7 +4,7 @@ dotenv.config()
 const env = process.env.NODE_ENV || 'local'
 const config = {
   //LOCAL =========================================================================
-  local: {
+  dev: {
     PORT: 3001,
     JWT_SECRET:
       'aBW8uMfBLwcwV29faa7zNpVRUDKZ2m5KbqF3gktnQFYUuzXjgk9sLU48HjdJ8fCmY2a9HQ',
@@ -18,7 +18,7 @@ const config = {
     SYSTEM_MAIL: 'alo.noreply@gmail.com',
     EMAIL_TEMPLATE: 'dev'
   },
-  dev: {
+  local: {
     PORT: 3001,
     JWT_SECRET:
       'aBW8uMfBLwcwV29faa7zNpVRUDKZ2m5KbqF3gktnQFYUuzXjgk9sLU48HjdJ8fCmY2a9HQ',

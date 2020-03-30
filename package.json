@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev":"nodemon src/index.js"
+    "start": "cross-env NODE_ENV=local nodemon src/index.js",
+    "dev": "cross-env NODE_ENV=dev node src/index.js",
+    "prod": "cross-env NODE_ENV=production node src/index.js"
   },
   "repository": {
     "type": "git",
