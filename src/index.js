@@ -7,7 +7,8 @@ const Ajv = require('ajv')
 const config = require('./config')
 const { setupMongoDBConnection } = require('./infra/mongodb')
 const { getElasticInfo } = require('./infra/elasticsearch')
-//
+
+// setup infra
 setupMongoDBConnection()
 getElasticInfo()
 
@@ -20,7 +21,7 @@ const server = Fastify({
     prettyPrint: {
       errorProps: 'hint, detail',
       crlf: true,
-      colorize: false
+      colorize: true
     },
     serializers: {
       req(req) {

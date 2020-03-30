@@ -1,14 +1,7 @@
-var logger = require('../infra/logger')
+var { checkHealth } = require('../controllers/health')
 
 module.exports = async fastify => {
-  fastify.get('/check', async (req, res) => {
-    logger.info('Check health request')
-    logger.error('Test error')
-    return {
-      status: true,
-      message: 'Welcome to Out API'
-    }
-  })
+  fastify.get('/check', checkHealth)
 }
 
 module.exports.autoPrefix = '/health'
