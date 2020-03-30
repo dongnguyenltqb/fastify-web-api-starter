@@ -18,13 +18,32 @@ function setupMongoDBConnection() {
     if (err) {
       logger.error(err.message)
       setupMongoDBConnection()
+      return
     }
     console.log('Connected successfully to MongoDB server')
+    testWriteMongoDb()
   })
 }
 
 function getCollection(name) {
   return client.db(dbName).collection(name)
+}
+
+function sleep(x) {
+  return new Promise(soved => {
+    setTimeout(soved, x)
+  })
+}
+
+async function testWriteMongoDb() {
+  try {
+    let logs = getCollection('logs')
+    await logs.insertOne({ created_at: Date.now().toString() })
+    await sleep(1000)
+    testWriteMongoDb()
+  } catch (err) {
+    logger.error(err)
+  }
 }
 
 module.exports = { setupMongoDBConnection, getCollection }
