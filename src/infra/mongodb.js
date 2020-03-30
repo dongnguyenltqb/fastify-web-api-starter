@@ -15,8 +15,8 @@ function setupMongoDBConnection() {
   // Use connect method to connect to the Server
   client.connect(function(err) {
     if (err) {
-      console.log('****************** ERROR ***************')
-      throw err
+      console.log(err.message)
+      setupMongoDBConnection()
     }
     console.log('Connected successfully to MongoDB server')
   })

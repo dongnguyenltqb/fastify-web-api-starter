@@ -78,7 +78,7 @@ server.register(Autoload, {
 // Run the server!
 const start = async () => {
   try {
-    await server.listen(config.PORT)
+    await server.listen(config.PORT, '0.0.0.0')
     server.ready(err => {
       if (err) throw err
     })
