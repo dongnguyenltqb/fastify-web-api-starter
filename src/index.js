@@ -5,9 +5,10 @@ const path = require('path')
 const Autoload = require('fastify-autoload')
 const Ajv = require('ajv')
 const config = require('./config')
-const { setupMongoDBConnection } = require('./infra/mongodb')
+const { ObjectId } = require('mongodb')
+const { setupMongoDBConnection, getCollection } = require('./infra/mongodb')
 const { getElasticInfo } = require('./infra/elasticsearch')
-
+const { jwtDecode } = require('./utils/jwt')
 // setup infra
 setupMongoDBConnection()
 getElasticInfo()
@@ -65,6 +66,42 @@ server.register(require('fastify-jwt'), {
 })
 
 // Decorate
+
+server.decorate('authenticated', async (req, res) => {
+  try {
+    let token = req.headers['x-auth-token'].replace('Bearer ', '')
+    req.user = jwtDecode(token)
+  } catch (err) {
+    res.code(401)
+    res.send({
+      status: false,
+      message: 'Unauthenticated'
+    })
+  }
+})
+
+server.decorate('isRootAdmin', async (req, res) => {
+  let adminUsers = getCollection('adminUsers')
+  let _id = req.user._id
+  try {
+    let admin = await adminUsers.findOne({
+      _id: new ObjectId(_id)
+    })
+    if (!admin) {
+      res.code(401)
+      res.send({
+        status: false,
+        err: 'root admin only...'
+      })
+    }
+  } catch (err) {
+    res.code(400)
+    res.send({
+      status: false,
+      err: err.message
+    })
+  }
+})
 
 server.register(require('fastify-cors'), {
   origin: config.CORS
