@@ -10,8 +10,8 @@ const { getElasticInfo } = require('./infra/elasticsearch')
 const { decorateJwtUtilOnFastify } = require('./utils/jwt')
 
 // setup infra
-setupMongoDBConnection()
-getElasticInfo()
+//setupMongoDBConnection()
+// getElasticInfo()
 
 const server = Fastify({
   ignoreTrailingSlash: true,

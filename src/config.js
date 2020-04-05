@@ -1,7 +1,8 @@
 const dotenv = require('dotenv')
 dotenv.config()
 
-const env = process.env.NODE_ENV || 'local'
+const env = process.env._NODE_ENV || 'dev'
+console.log('_NODE_ENV = ', env)
 const config = {
   //LOCAL =========================================================================
   local: {
@@ -23,7 +24,8 @@ const config = {
     JWT_SECRET:
       'aBW8uMfBLwcwV29faa7zNpVRUDKZ2m5KbqF3gktnQFYUuzXjgk9sLU48HjdJ8fCmY2a9HQ',
     FE_DOMAIN: 'http://localhost:3000',
-    MONGODB_URI: 'mongodb://docker:123456@mongo_hihi/bar?authSource=bar',
+    MONGODB_URI:
+      'mongodb://root:123456@mongodb-1-servers-vm-1,mongodb-1-servers-vm-0/bar?readPreference=primaryPreferred&replicaSet=rs0&authSource=admin',
     DB_NAME: 'bar',
     ELASTICSEARCH_URI: 'http://elastic_hihi:9200',
     LOG_LEVEL: 'info',
