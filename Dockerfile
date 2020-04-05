@@ -9,4 +9,4 @@ RUN npm install
 
 EXPOSE 3001
 
-CMD ["npm","run","$PROJECT_ENV"]
+CMD ["npm","run","$_PROJECT_ENV"]
