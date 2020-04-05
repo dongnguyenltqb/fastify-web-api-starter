@@ -18,7 +18,7 @@ steps:
     - --memory=128Mi
     - --max-instances=1
     - --platform=managed
-    - --port=80
+    - --port=3001
     - --concurrency=1000
     - --allow-unauthenticated
     - api-$_PROJECT_ENV
