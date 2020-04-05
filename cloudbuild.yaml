@@ -1,19 +1,19 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'asia.gcr.io/tough-racer-272817/api_$PROJECT_ENV:$SHORT_SHA', '.']
+  args: ['build', '-t', 'asia.gcr.io/tough-racer-272817/api_$_PROJECT_ENV:$SHORT_SHA', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'asia.gcr.io/tough-racer-272817/api_$PROJECT_ENV:$SHORT_SHA']
+  args: ['push', 'asia.gcr.io/tough-racer-272817/api_$_PROJECT_ENV:$SHORT_SHA']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['tag', 'asia.gcr.io/tough-racer-272817/api_$PROJECT_ENV:$SHORT_SHA', 'asia.gcr.io/tough-racer-272817/api_$PROJECT_ENV:latest']
+  args: ['tag', 'asia.gcr.io/tough-racer-272817/api_$_PROJECT_ENV:$SHORT_SHA', 'asia.gcr.io/tough-racer-272817/api_$_PROJECT_ENV:latest']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'asia.gcr.io/tough-racer-272817/api_$PROJECT_ENV:latest']
+  args: ['push', 'asia.gcr.io/tough-racer-272817/api_$_PROJECT_ENV:latest']
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
     - beta
     - run
     - deploy
     - --region=asia-east1
-    - --image=asia.gcr.io/tough-racer-272817/api_$PROJECT_ENV:latest
+    - --image=asia.gcr.io/tough-racer-272817/api_$_PROJECT_ENV:latest
     - --cpu=1
     - --memory=128Mi
     - --max-instances=1
@@ -21,6 +21,6 @@ steps:
     - --port=80
     - --concurrency=1000
     - --allow-unauthenticated
-    - api_$PROJECT_ENV
+    - api_$_PROJECT_ENV
 images:
-  - 'asia.gcr.io/tough-racer-272817/api_$PROJECT_ENV:latest'
+  - 'asia.gcr.io/tough-racer-272817/api_$_PROJECT_ENV:latest'
