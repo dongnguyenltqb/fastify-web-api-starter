@@ -6,9 +6,13 @@ const Autoload = require('fastify-autoload')
 const Ajv = require('ajv')
 const config = require('./config')
 const { setupMongoDBConnection } = require('./infra/mongodb')
+const { getElasticInfo } = require('./infra/elasticsearch')
+const { decorateJwtUtilOnFastify } = require('./utils/jwt')
 
-//
-setupMongoDBConnection()
+// setup infra
+//setupMongoDBConnection()
+// getElasticInfo()
+const serverUUID = uuidv4()
 
 const server = Fastify({
   ignoreTrailingSlash: true,
@@ -20,6 +24,18 @@ const server = Fastify({
       errorProps: 'hint, detail',
       crlf: true,
       colorize: true
+    },
+    serializers: {
+      req(req) {
+        return {
+          method: req.method,
+          url: req.url,
+          headers: req.headers,
+          hostname: req.hostname,
+          remoteAddress: req.ip,
+          remotePort: req.connection.remotePort
+        }
+      }
     }
   }
 })
@@ -51,6 +67,7 @@ server.register(require('fastify-jwt'), {
 })
 
 // Decorate
+decorateJwtUtilOnFastify(server)
 
 server.register(require('fastify-cors'), {
   origin: config.CORS
@@ -61,10 +78,15 @@ server.register(Autoload, {
   options: { prefix: '' }
 })
 
+server.addHook('preHandler', async (req, res) => {
+  res.header('x-container-id', serverUUID)
+  res.header('x-api-deploy-version', '0.1')
+  return
+})
 // Run the server!
 const start = async () => {
   try {
-    await server.listen(config.PORT)
+    await server.listen(config.PORT, '0.0.0.0')
     server.ready(err => {
       if (err) throw err
     })

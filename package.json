@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=local nodemon src/index.js",
-    "dev": "cross-env NODE_ENV=dev node src/index.js",
-    "prod": "cross-env NODE_ENV=production node src/index.js"
+    "start": "node src/index.js",
+    "dev": "cross-env _NODE_ENV=local node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +15,7 @@
   "license": "",
   "homepage": "",
   "dependencies": {
+    "@elastic/elasticsearch": "^7.6.1",
     "ajv": "^6.10.2",
     "dotenv": "^8.2.0",
     "fast-xml-parser": "^3.13.0",

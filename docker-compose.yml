@@ -1,0 +1,34 @@
+version: '3'
+services:
+  elastic_hihi:
+    image: elasticsearch:7.6.1
+    container_name: elastic_hihi
+    environment:
+      - node.name=elastic_hihi-node
+      - cluster.name=es-docker-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9292:9200"
+    volumes:
+      - "hihi-elastic-volume:/usr/share/elasticsearch"
+  mongo_hihi:
+    image: mongo
+    container_name: mongo_hihi
+    environment:
+      - MONGO_INITDB_DATABASE=bar
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123
+    ports:
+      - "27027:27017"
+    volumes:
+      - "hihi-mongo-volume:/data/db"
+      - ./mongo-docker-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  backend:
+    build: .
+    ports:
+      - "4321:3001"
+volumes:
+  hihi-mongo-volume:
+  hihi-elastic-volume:
